@@ -56,7 +56,4 @@ int main(void)
     }
     printf("\n");
 	return 0;
-    printf("New function");
-    printf("test3");
-    printf("new function 2");
 }
