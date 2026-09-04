@@ -10,7 +10,28 @@ int partition(int start, int end)
 	// 使a[start..mid-1]比pivot元素小，a[mid+1..end]比pivot元素大，而a[mid]就是pivot元素;
 	// return mid;
     int pivot = a[start];
-    return pivot;
+    
+    while (start < end) {
+        while (a[end] >= pivot && end > start) {
+            --end;
+        }
+        a[start] = a[end];
+        ++start;
+        while (a[start] <= pivot) {
+            ++start;
+        }
+        a[end] = a[start];
+        --end;
+    }
+    a[start] = pivot;
+    return start;
+}
+
+void exchange(index1, index2) {
+    int tmp;
+    tmp = a[index1];
+    a[index1] = a[index2];
+    a[index2] = tmp;
 }
 
 void quicksort(int start, int end)
