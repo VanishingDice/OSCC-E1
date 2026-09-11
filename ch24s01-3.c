@@ -3,6 +3,6 @@
 
 int main() {
     while (1) {
-        malloc(10);
+        int a = malloc(10);//Memory leak
     }
 }
