@@ -72,7 +72,7 @@ char *shrink_space(char *dest, const char *src, size_t n) {
         }
     }
     while (srcIndex < n) {
-        dest[srcIndex++] = '\0';
+        dest[destIndex++] = '\0';
     }
     return dest; 
 }
