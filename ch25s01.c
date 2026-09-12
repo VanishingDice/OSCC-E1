@@ -4,12 +4,12 @@
 
 char *strtok(char *str, const char *delim) {
     static char *index = NULL;
-    static char *(*saveptr);
+    static char *indexNext;
     if (str != NULL) {
         index = str;
-        (*saveptr) = index;
+        indexNext = index;
     } else {
-        index = (*saveptr);
+        index = indexNext;
     }
 
     if (index == NULL && str == NULL) {
@@ -17,25 +17,29 @@ char *strtok(char *str, const char *delim) {
     }
 
     int i = 0;
-    while ((*saveptr)[0] != '\0') {
+    while (indexNext[0] != '\0') {
         i = 0;
         while (delim[i] != '\0') {
-            if ((*saveptr)[0] == delim[i]) {
-                if ((*saveptr) == index) {
+            if (indexNext[0] == delim[i]) {
+                if (indexNext == index) {
                     ++index;
                     break;
                 }
 
-                (*saveptr)[0] = '\0';
-                ++(*saveptr);
+                indexNext[0] = '\0';
+                ++indexNext;
                 return index;
             }
             ++i;
         } 
-        ++(*saveptr);
+        ++indexNext;
     }
 
-    return NULL;
+    if (index == indexNext) {
+        return NULL;
+    } else {
+        return str;
+    }
 }
 
 char *strtok_r(char *str, const char *delim, char **saveptr) {
@@ -64,6 +68,7 @@ char *strtok_r(char *str, const char *delim, char **saveptr) {
     }
 
     if (str == *saveptr) {
+        *saveptr = NULL;
         return NULL;
     } else {
         return str;
@@ -71,30 +76,33 @@ char *strtok_r(char *str, const char *delim, char **saveptr) {
 }
 
 char *URLDecode(char *url, char *param[][2]) {
-    // char *addr = strtok(url, '?');
+    char *index, *subindex, *indexNext;
+    strtok_r(url, "?", &indexNext);
     int i = 0;
-    do {
-        param[i][0] = strtok(NULL, '&');
+    while ((index = strtok_r(NULL, "&", &indexNext)) != NULL) {
+        strtok_r(index, "=", &subindex);
+        param[i][0] = index;
+        param[i][1] = subindex;
         ++i;
-    } while (param[i-1][0] != NULL);
+
+    }
+    return url;
     
 }
 
-// int main(void)
-// {
-// 	char str[] = "root:x.:0,root:,/root,/bin/bash:";
-// 	char *token;
+int main0(void) {
+	char str[] = "root:x.:0,root:,/root,/bin/bash:";
+	char *token;
 
-// 	token = strtok(str, ":,.");
-// 	printf("%s\n", token);
-// 	while ( (token = strtok(NULL, ":,.")) != NULL)
-// 		printf("%s\n", token);
+	token = strtok(str, ":,.");
+	printf("%s\n", token);
+	while ( (token = strtok(NULL, ":,.")) != NULL)
+		printf("%s\n", token);
 	
-// 	return 0;
-// }
+	return 0;
+}
 
-int main(int argc, char *argv[])
-{
+int main1(int argc, char *argv[]) {
 	char *str1, *str2, *token, *subtoken;
 	char *saveptr1, *saveptr2;
 	int j;
@@ -120,4 +128,31 @@ int main(int argc, char *argv[])
 	}
 
 	exit(EXIT_SUCCESS);
+}
+
+int main(void) {
+    char url1[100] = "http://www.google.cn/search?complete=1&hl=zh-CN&ie=GB2312&q=linux&meta=";
+    char url2[100] = "http://www.baidu.com/s?wd=linux&cl=3";
+
+    char *(*param)[2];
+    param = malloc(200);
+    if (param == NULL) {
+        printf("out of memory\n");
+        exit(1);
+    }
+
+    printf("Domain:%s\n", URLDecode(url1, param));
+    for (int i = 0; param[i][0]!=NULL; ++i) {
+        printf("key:%s \tvalue:%s\n", param[i][0], param[i][1]);
+    }
+
+    memset(param, 0, 200);
+
+    printf("Domain:%s\n", URLDecode(url2, param));
+    for (int i = 0; param[i][0]!=NULL; ++i) {
+        printf("key:%s \tvalue:%s\n", param[i][0], param[i][1]);
+    }
+
+    free(param);
+    return 0;
 }
