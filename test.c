@@ -11,8 +11,18 @@
 //     printf("%u\n", pa);//print the address stored in pa
 // }
 
+// int main(void) {
+//     char* str = "Hello";
+//     printf("%s\n", str);
+//     printf("%c\n", str[1]);
+// }
+
 int main(void) {
-    char* str = "Hello";
-    printf("%s\n", str);
-    printf("%c\n", str[1]);
+    int x;
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    scanf("%d", &x);
+    printf("%d\n", x+n);
+    printf("%d\n", x+n & ~n);
 }
