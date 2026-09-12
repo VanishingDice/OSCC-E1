@@ -75,6 +75,40 @@ char *strtok_r(char *str, const char *delim, char **saveptr) {
     }
 }
 
+/*
+NAME
+    URLDecode - decode a url link to an array
+
+SYNOPSIS
+    #include <stdlib.h>
+    #include <string.h>
+
+    char *URLDecode(char *url, char *param[][2]);
+
+DESCRIPTION
+    The URLDecode() function use strtok_r to seperate the domain part
+    and the parameters from the url string. A pointer to the domain name
+    (characters before '?') will be returned. The key-value pairs is 
+    separated by '&'. Key and value is separated by '=', keys will be 
+    written to param[n][0], values will be written to param[n][1], 
+    you should make sure there are enough space in param.
+    e.g."http://www.baidu.com/s?wd=linux&cl=3"will be separated like:
+    Domain:http://www.baidu.com/s
+    key:wd  value:linux
+    key:cl  value:3
+
+RETURN VALUE
+    The shrink_space() function return a pointer to the domain part.
+
+CONFORMING TO 
+    C99.
+
+NOTES
+    You should make sure the url is ended with '\0'
+
+Ver 0.0.1
+2026/9/12
+*/
 char *URLDecode(char *url, char *param[][2]) {
     char *index, *subindex, *indexNext;
     strtok_r(url, "?", &indexNext);
