@@ -6,12 +6,12 @@
 
 int main() {
     FILE *ini;
-    if ((ini = fopen("ch25s02-4-test.ini", "a")) == NULL) {
-        perror("Open ini file a");
-        return 1;
-    }
-    fputc('\n', ini);
-    fclose(ini);
+    // if ((ini = fopen("ch25s02-4-test.ini", "a")) == NULL) {
+    //     perror("Open ini file a");
+    //     return 1;
+    // }
+    // fputc('\n', ini);
+    // fclose(ini);
     if ((ini = fopen("ch25s02-4-test.ini", "r")) == NULL) {
         perror("Open ini file r");
         return 1;
@@ -34,24 +34,28 @@ int main() {
         while (line[end] != '\0') {
             ++end;
         }
-        if (line[end - 1] != '\n') {
-            fprintf(stderr, "Error: line %d too long", count);
-            fclose(ini);
-            fclose(xml);
-            return 1;
-        }
+        // if (line[end - 1] != '\n') {
+        //     fprintf(stderr, "Error: line %d too long", count);
+        //     fclose(ini);
+        //     fclose(xml);
+        //     return 1;
+        // }
 
         if (line[0] == ';') {
             line[end - 1] = '\0';
             fprintf(xml, "<!-- %s -->\n", line+1);
         } else if (line[0] == '[') {
             //cut may happen
-            sscanf(line, "[%99[^]]", &section);
+            sscanf(line, "[%99[^]]", (char *)&section);
             fprintf(xml, "<%s>\n", section);
         } else if (line[0] == ' ' || line[0] == '\n' 
             || line[0] == '\0' || line[0] == '\t') {
-            fprintf(xml, "</%s>\n\n", section);
-            section[0] = '\0';    
+            if (section[0] != '\0') {
+                fprintf(xml, "</%s>\n\n", section);
+                section[0] = '\0';
+            } else {
+                fprintf(xml, "\n");
+            }
         } else {
             //remove blank char(' ' and '\t')
             int i=0;
@@ -69,7 +73,7 @@ int main() {
             }
             line[j] = '\0';
 
-            sscanf(line, "%99[^=]=%99[^\n]", &key, &value);
+            sscanf(line, "%99[^=]=%99[^\n]", (char *)&key, (char *)&value);
             fprintf(xml, "\t<%s>%s</%s>\n", key, value, key);
         }
 
