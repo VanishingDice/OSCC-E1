@@ -3,14 +3,14 @@
 
 typedef struct node *link;
 struct node {
-    unsigned char item;
+    long long item;
     link next;
     link prev;
 };
 
-link make_node(unsigned char item);
+link make_node(long long item);
 void free_node(link p);
-link search(unsigned char key);
+link search(long long key);
 void insert(link p);
 void delete(link p);
 void traverse(void (*visit)(link));
