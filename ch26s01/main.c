@@ -5,8 +5,23 @@ void print_item(link p) {
     printf("%d\n", p->item);
 }
 
-int main(void) {
-    link p = make_node(10);
+void sort_test(void) {
+	link p = make_node(10);
+	order_insert(p);
+	p = make_node(5);
+	order_insert(p);
+	p = make_node(20);
+	order_insert(p);
+	p = make_node(21);
+	order_insert(p);
+	p = make_node(6);
+	order_insert(p);
+	p = make_node(5);
+	order_insert(p);
+}
+
+void test(void) {
+ 	link p = make_node(10);
 	insert(p);
 	p = make_node(5);
 	insert(p);
@@ -28,6 +43,12 @@ int main(void) {
 		print_item(p);
 		free_node(p);
 	}
+
+}
+
+int main(void) {
+   
+	sort_test();
 
 	return 0;
 }

@@ -65,11 +65,25 @@ void push(link p) {
 }
 
 link pop(void) {
-    if(head == NULL) {
+    if (head == NULL) {
         return NULL;
     } else {
         link p = head;
         head = head->next;
         return p;
+    }
+}
+
+void order_insert(link p) {
+    if (head == NULL) {
+        head = p;
+        return;
+    } else {
+        link q;
+        for (q = head; p->item > q->item; q = q->next) {}
+        if (q->next != NULL) {
+            p->next = q->next;
+        }
+        q->next = p;
     }
 }

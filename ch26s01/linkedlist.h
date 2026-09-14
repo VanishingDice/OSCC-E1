@@ -16,5 +16,6 @@ void traverse(void (*visit)(link));
 void destroy(void);
 void push(link p);
 link pop(void);
+void order_insert(link p);
 
 #endif
