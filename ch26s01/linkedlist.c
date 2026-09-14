@@ -79,8 +79,19 @@ void order_insert(link p) {
         head = p;
         return;
     } else {
-        link q;
-        for (q = head; p->item > q->item; q = q->next) {}
+        if (p->item < head->item) {
+            p->next = head;
+            head = p;
+            return;
+        }
+        link q = head;
+        // for (q = head; p->item < q->item; q = q->next) {}
+        while (q->next != NULL) {
+            if (p->item < q->next->item) {
+                break;
+            }
+            q = q->next;
+        }
         if (q->next != NULL) {
             p->next = q->next;
         }

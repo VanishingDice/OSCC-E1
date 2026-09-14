@@ -18,6 +18,20 @@ void sort_test(void) {
 	order_insert(p);
 	p = make_node(5);
 	order_insert(p);
+	p = make_node(20);
+	order_insert(p);
+	p = make_node(10);
+	order_insert(p);
+	p = make_node(5);
+	order_insert(p);
+	p = make_node(6);
+	order_insert(p);
+	p = make_node(7);
+	order_insert(p);
+	p = make_node(0);
+	order_insert(p);
+	traverse(print_item);
+	destroy();
 }
 
 void test(void) {
@@ -48,6 +62,7 @@ void test(void) {
 
 int main(void) {
    
+	// test();
 	sort_test();
 
 	return 0;
