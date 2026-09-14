@@ -8,6 +8,7 @@
             // "args": ["'a/bbb///cc;xxx:yyy:'", "':;'", "'/'"],//for ch25s01
             // "args": ["ch11s04.c", "ch11s04-copy.c"],//for ch25s02-1
             // "args": ["ch25s02-5-test.c"],//for ch25s02-5
+            // "args": ["30", "3"],//for ch26s01-2 Josephus
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
