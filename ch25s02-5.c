@@ -4,10 +4,10 @@
 
 int findinclude(FILE *);
 char *includepath[] = {
-    {"/usr/include/\0"},
-    {"/usr/lib/gcc/x86_64-linux-gnu/13/include/\0"},
-    {"/usr/local/include/\0"},
-    {"/usr/include/x86_64-linux-gnu/\0"}
+    "/usr/include/\0",
+    "/usr/lib/gcc/x86_64-linux-gnu/13/include/\0",
+    "/usr/local/include/\0",
+    "/usr/include/x86_64-linux-gnu/\0"
 };
 
 int printpath(const char *name, int mode) { 
