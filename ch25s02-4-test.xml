@@ -1,0 +1,14 @@
+<!-- Configuration of http -->
+<http>
+	<domain>www.mysite.com</domain>
+	<port>8080</port>
+	<cgihome>/cgi-bin</cgihome>
+</http>
+
+<!-- Configuration of db -->
+<database>
+	<server>mysql</server>
+	<user>myname</user>
+	<password>toopendatabase</password>
+</database>
+
