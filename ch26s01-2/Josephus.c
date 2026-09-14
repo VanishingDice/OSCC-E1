@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 void print_item(link p) {
-    printf("%d\n", p->item);
+    printf("%lld\n", p->item);
 }
 
 int main(int argc, char *argv[]) {
@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
 			current = current->next;
 		}
 		next = current->next;
-		printf("%d died.\n", current->item);
+		printf("%lld died.\n", current->item);
 		delete(current);
 		current = next;
 		if (current == current->next) {
-			printf("%d survived!\n", current->item);
+			printf("%lld survived!\n", current->item);
 			break;
 		}
 	}
